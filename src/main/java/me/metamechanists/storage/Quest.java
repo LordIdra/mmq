@@ -7,7 +7,8 @@ public record Quest(Player player, QuestDescriptor descriptor) {
 
     public boolean attemptComplete() {
         if (descriptor.playerHasItems(player)) {
-            descriptor.rewardPlayer(player);
+            descriptor.rewardPlayerItems(player);
+            descriptor.rewardPlayerPermissions(player);
             return true;
         }
         return false;

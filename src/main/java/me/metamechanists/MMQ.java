@@ -31,6 +31,11 @@ public class MMQ extends JavaPlugin {
             CommandHandler.processQuestCommand(sender);
             return true;
         }
+
+        if (CommandHandler.isItemStackSaveCommand(command)) {
+            CommandHandler.processItemStackSaveCommand(sender);
+            return true;
+        }
         return false;
     }
 }

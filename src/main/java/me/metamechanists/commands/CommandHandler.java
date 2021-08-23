@@ -12,7 +12,15 @@ public class CommandHandler {
         return command.getName().equals("quest");
     }
 
+    public static boolean isItemStackSaveCommand(@NotNull Command command) {
+        return command.getName().equals("itemstacksave");
+    }
+
     public static void processQuestCommand(CommandSender sender) {
         // TODO display category GUI
+    }
+
+    public static void processItemStackSaveCommand(CommandSender sender) {
+
     }
 }

@@ -1,4 +1,13 @@
 package me.metamechanists.tasks;
 
-public class QuestTickTask {
+import org.bukkit.scheduler.BukkitRunnable;
+
+public class QuestTickTask extends BukkitRunnable {
+
+    // TODO literally everything
+
+    @Override
+    public void run() {
+
+    }
 }
