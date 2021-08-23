@@ -4,6 +4,7 @@ import me.metamechanists.commands.CommandHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class MMQ extends JavaPlugin {
 
@@ -24,7 +25,8 @@ public class MMQ extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String alias, String[] arguments) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
+                             @NotNull String alias, String[] arguments) {
         if (CommandHandler.isQuestCommand(command)) {
             CommandHandler.processQuestCommand(sender);
             return true;
