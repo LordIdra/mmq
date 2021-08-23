@@ -5,7 +5,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
 
-public record CategoryDescriptor(ItemStack icon, Permission[] requiredPermissions) {
+public record QuestDescriptor(
+        ItemStack icon,
+        Permission[] requiredPermissions,
+        ItemStack[] requiredItems,
+        Permission[] rewardPermissions,
+        ItemStack[] rewardItems) {
 
     public ItemStack getIcon() {
         return icon;
@@ -18,5 +23,14 @@ public record CategoryDescriptor(ItemStack icon, Permission[] requiredPermission
             }
         }
         return true;
+    }
+
+    public boolean playerHasItems(Player player) {
+        // TODO item comparison check
+        return false;
+    }
+
+    public void rewardPlayer(Player player) {
+        // TODO give player reward items and permissions
     }
 }

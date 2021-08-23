@@ -1,6 +1,8 @@
 package me.metamechanists;
 
 import me.metamechanists.commands.CommandHandler;
+import me.metamechanists.config.CategoryConfig;
+import me.metamechanists.config.QuestConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,10 +12,9 @@ public class MMQ extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // TODO load MessageConfig
-        // TODO load CategoryConfig
-        // TODO load QuestConfig
-        // TODO load CommandHandler and TabHandler
+        CategoryConfig.load();
+        QuestConfig.load();
+        // TODO load CommandHandler
         // TODO load template quests into QuestStorage
         // TODO load active quests into QuestStorage
     }

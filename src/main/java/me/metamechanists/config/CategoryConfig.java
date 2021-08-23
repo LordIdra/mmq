@@ -9,8 +9,10 @@ public class CategoryConfig {
 
     private static final Map<String, CategoryDescriptor> categoryMap = new HashMap<>();
 
+    private CategoryConfig() {}
+
     public static void load() {
-        // TODO load categories.yml into category_map
+        // TODO load categories.yml into categoryMap
     }
 
     public static CategoryDescriptor getCategory(String id) {
