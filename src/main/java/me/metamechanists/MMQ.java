@@ -14,7 +14,6 @@ public class MMQ extends JavaPlugin {
     public void onEnable() {
         CategoryConfig.load();
         QuestConfig.load();
-        // TODO load CommandHandler
         // TODO load template quests into QuestStorage
         // TODO load active quests into QuestStorage
     }
