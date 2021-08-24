@@ -1,0 +1,10 @@
+me\metamechanists\config\CategoryDescriptor.class
+me\metamechanists\util\FileUtils.class
+me\metamechanists\config\CategoryConfig.class
+me\metamechanists\tasks\QuestTickTask.class
+me\metamechanists\commands\CommandHandler.class
+me\metamechanists\config\QuestConfig.class
+me\metamechanists\storage\Quest.class
+me\metamechanists\config\QuestDescriptor.class
+me\metamechanists\util\PermissionUtils.class
+me\metamechanists\util\PluginUtils.class

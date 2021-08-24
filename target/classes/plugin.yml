@@ -1,0 +1,23 @@
+main: me.metamechanists.MMQ
+name: MMQ
+version: 0.1
+description: A small custom plugin for handling quests
+api-version: 1.17.1
+author: Idra
+depend: [Slimefun, LuckPerms]
+
+commands:
+  quest:
+    permission: mmq.quest
+    description: "Open the quest GUI"
+  itemstacksave:
+    permission: mmq.itemstacksave
+    description: "Save an itemstack to itemstacks.yml"
+
+permissions:
+  mmq.quest:
+    description: "Allows the usage of /quest"
+    default: true
+  mmq.itemstacksave:
+    description: "Allows the usage of /itemstacksave"
+    default: false

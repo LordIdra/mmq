@@ -1,7 +1,10 @@
 package me.metamechanists.commands;
 
+import me.metamechanists.util.FileUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandHandler {
@@ -13,7 +16,7 @@ public class CommandHandler {
     }
 
     public static boolean isItemStackSaveCommand(@NotNull Command command) {
-        return command.getName().equals("itemstacksave");
+        return command.getName().equalsIgnoreCase("itemstacksave");
     }
 
     public static void processQuestCommand(CommandSender sender) {
@@ -21,6 +24,8 @@ public class CommandHandler {
     }
 
     public static void processItemStackSaveCommand(CommandSender sender) {
-
+        Player player = (Player) sender;
+        ItemStack stack = player.getItemInUse();
+        FileUtils.writeStack(player, stack);
     }
 }

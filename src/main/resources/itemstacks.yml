@@ -1,0 +1,3 @@
+test-category:
+  required-permissions:
+  - mmq.category.testcategory

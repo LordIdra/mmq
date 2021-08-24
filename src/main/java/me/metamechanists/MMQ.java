@@ -3,6 +3,8 @@ package me.metamechanists;
 import me.metamechanists.commands.CommandHandler;
 import me.metamechanists.config.CategoryConfig;
 import me.metamechanists.config.QuestConfig;
+import me.metamechanists.util.FileUtils;
+import me.metamechanists.util.PluginUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,6 +14,9 @@ public class MMQ extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PluginUtils.plugin = this;
+        PluginUtils.initialize();
+        FileUtils.initialize();
         CategoryConfig.load();
         QuestConfig.load();
         // TODO load template quests into QuestStorage
@@ -31,7 +36,6 @@ public class MMQ extends JavaPlugin {
             CommandHandler.processQuestCommand(sender);
             return true;
         }
-
         if (CommandHandler.isItemStackSaveCommand(command)) {
             CommandHandler.processItemStackSaveCommand(sender);
             return true;
