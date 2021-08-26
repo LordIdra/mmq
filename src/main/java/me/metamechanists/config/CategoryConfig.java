@@ -16,14 +16,15 @@ public class CategoryConfig {
     private CategoryConfig() {}
 
     public static QuestDescriptor loadQuest(ConfigurationSection section) {
-        ItemStack icon = section.getItemStack("icon");
+        ItemStack normalIcon = section.getItemStack("normal-icon");
+        ItemStack lockedIcon = section.getItemStack("locked-icon");
         List<Permission> requiredPermissions = GeneralUtils.permissionStringsToPermissions(
                     section.getStringList("required-permissions"));
         List<Permission> rewardPermissions = GeneralUtils.permissionStringsToPermissions(
                     section.getStringList("reward-permissions"));
         ItemStack requiredItem = section.getItemStack("required-items");
         ItemStack rewardItem = section.getItemStack("reward-items");
-        return new QuestDescriptor(icon, requiredPermissions, requiredItem, rewardPermissions, rewardItem);
+        return new QuestDescriptor(normalIcon, lockedIcon, requiredPermissions, requiredItem, rewardPermissions, rewardItem);
     }
 
     public static List<QuestDescriptor> loadQuests(ConfigurationSection section) {

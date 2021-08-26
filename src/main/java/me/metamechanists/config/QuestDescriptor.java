@@ -12,7 +12,8 @@ import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimil
 
 
 public record QuestDescriptor(
-        ItemStack icon,
+        ItemStack normalIcon,
+        ItemStack lockedIcon,
         List<Permission> requiredPermissions,
         ItemStack requiredItem,
         List<Permission> rewardPermissions,
@@ -28,8 +29,12 @@ public record QuestDescriptor(
         return itemCount > target.getAmount();
     }
 
-    public ItemStack getIcon() {
-        return icon;
+    public ItemStack getNormalIcon() {
+        return normalIcon;
+    }
+
+    public ItemStack getLockedIcon() {
+        return lockedIcon;
     }
 
     public boolean playerHasPermission(Player player) {
