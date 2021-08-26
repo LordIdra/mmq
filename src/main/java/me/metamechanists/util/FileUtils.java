@@ -13,6 +13,9 @@ import java.util.*;
 
 public class FileUtils {
 
+    private static final String CATEGORY_FOLDER_NAME = "categories";
+    private static final String ITEMSTACK_FILE_NAME = "itemstacks.yml";
+
     private static final List<File> categoryFiles = new ArrayList<>();
     private static File itemstackFile;
 
@@ -22,13 +25,15 @@ public class FileUtils {
     private FileUtils() {}
 
     private static void loadItemStackConfig() {
-        GeneralUtils.plugin.saveResource("itemstacks.yml", false);
-        itemstackFile = new File(GeneralUtils.dataFolder, "itemstacks.yml");
+        if (!new File(GeneralUtils.dataFolder, ITEMSTACK_FILE_NAME).exists()) {
+            GeneralUtils.plugin.saveResource(ITEMSTACK_FILE_NAME, false);
+        }
+        itemstackFile = new File(GeneralUtils.dataFolder, ITEMSTACK_FILE_NAME);
         itemstackConfig = YamlConfiguration.loadConfiguration(itemstackFile);
     }
 
     private static void loadCategoryConfigs() {
-        File categoryFolder = new File(GeneralUtils.dataFolder, "categories");
+        File categoryFolder = new File(GeneralUtils.dataFolder, CATEGORY_FOLDER_NAME);
         if (!categoryFolder.exists()) {
             categoryFolder.mkdir();
         }
@@ -42,7 +47,7 @@ public class FileUtils {
         try {
             itemstackConfig.save(itemstackFile);
         } catch (IOException e) {
-            GeneralUtils.plugin.getLogger().severe(ChatColor.RED + "Failed to save itemstacks.yml");
+            GeneralUtils.plugin.getLogger().severe(ChatColor.RED + "Failed to save" + ITEMSTACK_FILE_NAME);
             e.printStackTrace();
         }
     }

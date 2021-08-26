@@ -18,11 +18,12 @@ public final class CategoryDescriptor {
     private final List<QuestDescriptor> quests;
 
     public CategoryDescriptor(FileConfiguration config) {
-        icon = config.getItemStack("icon");
-        permissions = GeneralUtils.permissionStringsToPermissions(
-                config.getStringList("permissions"));
+        ConfigurationSection categoryConfig = config.getConfigurationSection("category");
         ConfigurationSection questConfig = config.getConfigurationSection("quests");
-        quests = CategoryConfig.loadQuests(config);
+        icon = categoryConfig.getItemStack("icon");
+        permissions = GeneralUtils.permissionStringsToPermissions(
+                categoryConfig.getStringList("permissions"));
+        quests = CategoryConfig.loadQuests(questConfig);
         if (icon == null) {
             GeneralUtils.plugin.getLogger().severe("Category " + config.getName() + " missing icon.");
         }

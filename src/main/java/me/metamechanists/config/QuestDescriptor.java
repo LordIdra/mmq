@@ -14,9 +14,9 @@ import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimil
 public record QuestDescriptor(
         ItemStack icon,
         List<Permission> requiredPermissions,
-        List<ItemStack> requiredItems,
+        ItemStack requiredItem,
         List<Permission> rewardPermissions,
-        List<ItemStack> rewardItems) {
+        ItemStack rewardItem) {
 
     private static boolean playerHasItemStack(Player player, ItemStack target) {
         int itemCount = 0;
@@ -42,20 +42,13 @@ public record QuestDescriptor(
     }
 
     public boolean playerHasItems(Player player) {
-        for (ItemStack target : requiredItems) {
-            if (!playerHasItemStack(player, target)) {
-                return false;
-            }
-        }
-        return true;
+        return playerHasItemStack(player, requiredItem);
     }
 
     public void rewardPlayerItems(Player player) {
-        for (ItemStack addStack : rewardItems) {
-            Map<Integer, ItemStack> items_to_drop = player.getInventory().addItem(addStack);
-            for (ItemStack dropStack : items_to_drop.values()) {
-                player.getWorld().dropItem(player.getLocation(), dropStack);
-            }
+        Map<Integer, ItemStack> items_to_drop = player.getInventory().addItem(rewardItem);
+        for (ItemStack dropStack : items_to_drop.values()) {
+            player.getWorld().dropItem(player.getLocation(), dropStack);
         }
     }
 

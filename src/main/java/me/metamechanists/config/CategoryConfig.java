@@ -6,9 +6,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,14 +24,14 @@ public class CategoryConfig {
                     section.getStringList("required-permissions"));
         List<Permission> rewardPermissions = GeneralUtils.permissionStringsToPermissions(
                     section.getStringList("reward-permissions"));
-        List<ItemStack> requiredItems = (List<ItemStack>) section.getList("required-items");
-        List<ItemStack> rewardItems = (List<ItemStack>) section.getList("reward-items");
-        return new QuestDescriptor(icon, requiredPermissions, requiredItems, rewardPermissions, rewardItems);
+        ItemStack requiredItem = section.getItemStack("required-items");
+        ItemStack rewardItem = section.getItemStack("reward-items");
+        return new QuestDescriptor(icon, requiredPermissions, requiredItem, rewardPermissions, rewardItem);
     }
 
     public static List<QuestDescriptor> loadQuests(ConfigurationSection section) {
         List<QuestDescriptor> quests = new ArrayList<>();
-        for (String key : section.getKeys(true)) {
+        for (String key : section.getKeys(false)) {
             ConfigurationSection value = section.getConfigurationSection(key);
             quests.add(loadQuest(value));
         }
