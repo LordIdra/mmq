@@ -7,14 +7,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CategoryConfig {
 
-    private static final Map<String, CategoryDescriptor> categories = new HashMap<>();
+    private static final LinkedHashMap<String, CategoryDescriptor> categories = new LinkedHashMap<>();
 
     private CategoryConfig() {}
 
@@ -48,7 +45,7 @@ public class CategoryConfig {
         }
     }
 
-    public static Map<String, CategoryDescriptor> getCategories() {
+    public static LinkedHashMap<String, CategoryDescriptor> getCategories() {
         return categories;
     }
 }

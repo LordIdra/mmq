@@ -46,10 +46,6 @@ public final class CategoryDescriptor {
         return true;
     }
 
-    public ItemStack icon() {
-        return icon;
-    }
-
     public List<Permission> permissions() {
         return permissions;
     }

@@ -1,5 +1,6 @@
 package me.metamechanists.commands;
 
+import me.metamechanists.gui.CategoryInterface;
 import me.metamechanists.util.FileUtils;
 import me.metamechanists.util.GeneralUtils;
 import org.bukkit.command.Command;
@@ -26,8 +27,7 @@ public class CommandHandler {
             GeneralUtils.plugin.getLogger().warning("This command cannot be run from console.");
             return;
         }
-
-        // TODO display category GUI
+        new CategoryInterface((Player) sender, 9, "Categories").display();
     }
 
     public static void processItemStackSaveCommand(CommandSender sender) {
