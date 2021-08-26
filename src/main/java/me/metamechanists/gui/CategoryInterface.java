@@ -16,7 +16,11 @@ public class CategoryInterface extends UserInterface {
         categories = CategoryConfig.getCategories();
         int i = 0;
         for (CategoryDescriptor category : categories.values()) {
-            setItem(i++, category.getIcon());
+            if (category.playerHasPermission(player)) {
+                setItem(i++, category.getNormalIcon());
+            } else {
+                setItem(i++, category.getLockedIcon());
+            }
         }
     }
 

@@ -21,3 +21,9 @@ permissions:
   mmq.itemstacksave:
     description: "Allows the usage of /itemstacksave"
     default: op
+  mmq.category.testcategory:
+    description: "Allows access of Test Category"
+    default: false
+  mmq.quest.testquest:
+    description: "Allows access of Test Quest"
+    default: false
