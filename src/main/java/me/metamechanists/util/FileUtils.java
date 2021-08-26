@@ -5,45 +5,59 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 
 public class FileUtils {
 
-    private static FileConfiguration categoryConfig;
-    private static FileConfiguration questConfig;
-    private static FileConfiguration itemstackConfig;
+    private static final List<File> categoryFiles = new ArrayList<>();
+    private static File itemstackFile;
+
+    private static Map<String, FileConfiguration> categoryConfigs = new HashMap<>();
+    private static YamlConfiguration itemstackConfig;
 
     private FileUtils() {}
 
-    private static void loadFiles() {
-        categoryConfig = YamlConfiguration.loadConfiguration(new File(PluginUtils.dataFolder, "categories.yml"));
-        questConfig = YamlConfiguration.loadConfiguration(new File(PluginUtils.dataFolder, "quest.yml"));
-        itemstackConfig = YamlConfiguration.loadConfiguration(new File(PluginUtils.dataFolder, "itemstacks.yml"));
+    private static void loadItemStackConfig() {
+        GeneralUtils.plugin.saveResource("itemstacks.yml", false);
+        itemstackFile = new File(GeneralUtils.dataFolder, "itemstacks.yml");
+        itemstackConfig = YamlConfiguration.loadConfiguration(itemstackFile);
     }
 
-    public static void initialize() {
-        PluginUtils.plugin.saveResource("categories.yml", false);
-        PluginUtils.plugin.saveResource("quests.yml", false);
-        PluginUtils.plugin.saveResource("itemstacks.yml", false);
-        loadFiles();
+    private static void loadCategoryConfigs() {
+        File categoryFolder = new File(GeneralUtils.dataFolder, "categories");
+        if (!categoryFolder.exists()) {
+            categoryFolder.mkdir();
+        }
+        categoryFiles.addAll(Arrays.asList(categoryFolder.listFiles()));
+        for (File category : categoryFiles) {
+            categoryConfigs.put(GeneralUtils.fileNameNoExtension(category), YamlConfiguration.loadConfiguration(category));
+        }
     }
 
-    public static void saveFiles() {
+    private static void saveItemStackConfig() {
         try {
-            categoryConfig.save(new File(PluginUtils.dataFolder, "categories.yml"));
-            questConfig.save(new File(PluginUtils.dataFolder, "quest.yml"));
-            itemstackConfig.save(new File(PluginUtils.dataFolder, "itemstacks.yml"));
+            itemstackConfig.save(itemstackFile);
         } catch (IOException e) {
-            PluginUtils.plugin.getLogger().severe(ChatColor.RED + "Failed to save config files.");
+            GeneralUtils.plugin.getLogger().severe(ChatColor.RED + "Failed to save itemstacks.yml");
             e.printStackTrace();
         }
-        loadFiles();
     }
 
-    public static void writeStack(Player player, ItemStack stack) {
+    public static void loadAllConfigs() {
+        loadItemStackConfig();
+        loadCategoryConfigs();
+    }
+
+    public static void writeStack(@NotNull Player player, ItemStack stack) {
         itemstackConfig.set(player.getName(), stack);
-        saveFiles();
+        saveItemStackConfig();
+    }
+
+    public static @NotNull Map<String, FileConfiguration> getCategoryConfigs() {
+        return categoryConfigs;
     }
 }

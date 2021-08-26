@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
+import java.util.List;
 import java.util.Map;
 
 import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
@@ -12,10 +13,10 @@ import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimil
 
 public record QuestDescriptor(
         ItemStack icon,
-        Permission[] requiredPermissions,
-        ItemStack[] requiredItems,
-        Permission[] rewardPermissions,
-        ItemStack[] rewardItems) {
+        List<Permission> requiredPermissions,
+        List<ItemStack> requiredItems,
+        List<Permission> rewardPermissions,
+        List<ItemStack> rewardItems) {
 
     private static boolean playerHasItemStack(Player player, ItemStack target) {
         int itemCount = 0;

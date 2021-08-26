@@ -2,7 +2,7 @@ main: me.metamechanists.MMQ
 name: MMQ
 version: 0.1
 description: A small custom plugin for handling quests
-api-version: 1.17.1
+api-version: 1.17
 author: Idra
 depend: [Slimefun, LuckPerms]
 
@@ -20,4 +20,4 @@ permissions:
     default: true
   mmq.itemstacksave:
     description: "Allows the usage of /itemstacksave"
-    default: false
+    default: op

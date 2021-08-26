@@ -2,9 +2,8 @@ package me.metamechanists;
 
 import me.metamechanists.commands.CommandHandler;
 import me.metamechanists.config.CategoryConfig;
-import me.metamechanists.config.QuestConfig;
 import me.metamechanists.util.FileUtils;
-import me.metamechanists.util.PluginUtils;
+import me.metamechanists.util.GeneralUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,11 +13,11 @@ public class MMQ extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        PluginUtils.plugin = this;
-        PluginUtils.initialize();
-        FileUtils.initialize();
-        CategoryConfig.load();
-        QuestConfig.load();
+        GeneralUtils.plugin = this;
+        GeneralUtils.initialize();
+        FileUtils.loadAllConfigs();
+        CategoryConfig.loadCategories();
+        GeneralUtils.plugin.getLogger().info(CategoryConfig.getCategories().toString());
         // TODO load template quests into QuestStorage
         // TODO load active quests into QuestStorage
     }
