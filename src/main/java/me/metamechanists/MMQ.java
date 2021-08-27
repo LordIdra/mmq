@@ -2,6 +2,7 @@ package me.metamechanists;
 
 import me.metamechanists.commands.CommandHandler;
 import me.metamechanists.config.CategoryConfig;
+import me.metamechanists.tasks.QuestCheckTask;
 import me.metamechanists.util.FileUtils;
 import me.metamechanists.util.GeneralUtils;
 import org.bukkit.command.Command;
@@ -11,20 +12,21 @@ import org.jetbrains.annotations.NotNull;
 
 public class MMQ extends JavaPlugin {
 
+    private final int QUEST_CHECK_INTERVAL = 20;
+
     @Override
     public void onEnable() {
         GeneralUtils.plugin = this;
         GeneralUtils.initialize();
         FileUtils.loadAllConfigs();
         CategoryConfig.loadCategories();
-        // TODO load template quests into QuestStorage
-        // TODO load active quests into QuestStorage
+        QuestCheckTask questCheckTask = new QuestCheckTask();
+        questCheckTask.runTaskTimer(this, 0, QUEST_CHECK_INTERVAL);
     }
 
     @Override
     public void onDisable() {
-        // TODO halt active tasks
-        // TODO save active quests
+        // Nothing here basically
     }
 
     @Override

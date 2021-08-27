@@ -1,38 +1,47 @@
 package me.metamechanists.config;
 
 import me.metamechanists.util.GeneralUtils;
+import me.metamechanists.util.PermissionUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 
-public final class CategoryDescriptor {
+public final class Category {
 
+    private final String id;
     private final String name;
     private final ItemStack icon;
     private final List<String> loreLocked;
-    private final List<String> loreAvailable;
+    private final List<String> loreActive;
     private final List<Permission> permissions;
-    private final LinkedHashMap<String, QuestDescriptor> quests;
+    private final List<Quest> quests;
 
-    public CategoryDescriptor(FileConfiguration config) {
+    private Permission categoryCompletePermission() {
+        return new Permission("mmq.category." + id + ".complete");
+    }
+
+    public Category(FileConfiguration config) {
         ConfigurationSection categoryConfig = config.getConfigurationSection("category");
         ConfigurationSection questConfig = config.getConfigurationSection("quests");
+        id = categoryConfig.getName();
         name = categoryConfig.getString("name");
         icon = categoryConfig.getItemStack("icon");
         loreLocked = categoryConfig.getStringList("locked");
-        loreAvailable = categoryConfig.getStringList("available");
+        loreActive = categoryConfig.getStringList("available");
         permissions = GeneralUtils.permissionStringsToPermissions(
                 categoryConfig.getStringList("permissions"));
         quests = CategoryConfig.loadQuests(questConfig);
     }
 
     public boolean playerHasPermission(Player player) {
+        if (player.hasPermission(categoryCompletePermission())) {
+            return false;
+        }
         for (Permission permission : permissions) {
             if (!player.hasPermission(permission)) {
                 return false;
@@ -41,21 +50,34 @@ public final class CategoryDescriptor {
         return true;
     }
 
+    public boolean allQuestsComplete(Player player) {
+        for (Quest quest : quests) {
+            if (!quest.isComplete(player)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void complete(Player player) {
+        PermissionUtils.addPermission(player, categoryCompletePermission());
+    }
+
     public ItemStack getIcon() { return icon; }
 
     public List<String> getLoreLocked() {
         return loreLocked;
     }
 
-    public List<String> getLoreAvailable() {
-        return loreAvailable;
+    public List<String> getLoreActive() {
+        return loreActive;
     }
 
     public String getName() {
         return name;
     }
 
-    public LinkedHashMap<String, QuestDescriptor> getQuests() {
+    public List<Quest> getQuests() {
         return quests;
     }
 }

@@ -12,28 +12,34 @@ import java.util.Map;
 
 import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
 
-public final class QuestDescriptor {
+public final class Quest {
 
+    private final String id;
     private final String name;
     private final ItemStack icon;
     private final List<String> loreLocked;
-    private final List<String> loreAvailable;
+    private final List<String> loreActive;
     private final List<Permission> requiredPermissions;
     private final ItemStack requiredItem;
     private final List<Permission> rewardPermissions;
     private final ItemStack rewardItem;
 
-    public QuestDescriptor(ConfigurationSection section) {
+    public Quest(ConfigurationSection section) {
+        id = section.getName();
         name = section.getString("name");
         icon = section.getItemStack("icon");
         loreLocked = section.getStringList("locked");
-        loreAvailable = section.getStringList("available");
+        loreActive = section.getStringList("active");
         requiredPermissions = GeneralUtils.permissionStringsToPermissions(
                 section.getStringList("required-permissions"));
         rewardPermissions = GeneralUtils.permissionStringsToPermissions(
                 section.getStringList("reward-permissions"));
         requiredItem = section.getItemStack("required-items");
         rewardItem = section.getItemStack("reward-items");
+    }
+
+    private Permission questCompletePermission() {
+        return new Permission("mmq.quest." + id + ".complete");
     }
 
     private static boolean playerHasItemStack(Player player, ItemStack target) {
@@ -46,7 +52,27 @@ public final class QuestDescriptor {
         return itemCount > target.getAmount();
     }
 
+    private void rewardPlayerItems(Player player) {
+        Map<Integer, ItemStack> items_to_drop = player.getInventory().addItem(rewardItem);
+        for (ItemStack dropStack : items_to_drop.values()) {
+            player.getWorld().dropItem(player.getLocation(), dropStack);
+        }
+    }
+
+    private void rewardPlayerPermissions(Player player) {
+        for (Permission permission : rewardPermissions) {
+            PermissionUtils.addPermission(player, permission);
+        }
+    }
+
+    public boolean playerHasItems(Player player) {
+        return playerHasItemStack(player, requiredItem);
+    }
+
     public boolean playerHasPermission(Player player) {
+        if (player.hasPermission(questCompletePermission())) {
+            return false;
+        }
         for (Permission permission : requiredPermissions) {
             if (!player.hasPermission(permission)) {
                 return false;
@@ -55,21 +81,14 @@ public final class QuestDescriptor {
         return true;
     }
 
-    public boolean playerHasItems(Player player) {
-        return playerHasItemStack(player, requiredItem);
+    public void complete(Player player) {
+        rewardPlayerItems(player);
+        rewardPlayerPermissions(player);
+        PermissionUtils.addPermission(player, questCompletePermission());
     }
 
-    public void rewardPlayerItems(Player player) {
-        Map<Integer, ItemStack> items_to_drop = player.getInventory().addItem(rewardItem);
-        for (ItemStack dropStack : items_to_drop.values()) {
-            player.getWorld().dropItem(player.getLocation(), dropStack);
-        }
-    }
-
-    public void rewardPlayerPermissions(Player player) {
-        for (Permission permission : rewardPermissions) {
-            PermissionUtils.addPermission(player, permission);
-        }
+    public boolean isComplete(Player player) {
+        return player.hasPermission(questCompletePermission());
     }
 
     public String getName() {
@@ -84,7 +103,7 @@ public final class QuestDescriptor {
         return loreLocked;
     }
 
-    public List<String> getLoreAvailable() {
-        return loreAvailable;
+    public List<String> getLoreActive() {
+        return loreActive;
     }
 }
