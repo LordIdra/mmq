@@ -25,8 +25,9 @@ public class QuestInterface extends UserInterface {
     }
 
     private ItemStack getIconWithPrefix(Quest quest) {
-        // TODO add logic for if the player has completed a quest
-        if (!quest.playerHasPermission(player)) {
+        if (quest.isComplete(player)) {
+            return GeneralUtils.itemStackIconComplete(quest.getName());
+        } else if (!quest.playerHasPermission(player)) {
             return GeneralUtils.itemStackIconLocked(quest.getName(), quest.getLoreLocked());
         } else {
             return GeneralUtils.itemStackIconActive(quest.getName(), quest.getLoreActive(), quest.getIcon());

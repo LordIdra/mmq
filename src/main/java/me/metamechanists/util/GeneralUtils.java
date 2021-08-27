@@ -18,7 +18,7 @@ public class GeneralUtils {
     private static final String LOCKED_PREFIX =
             ChatColor.translateAlternateColorCodes('&', "&f&l[&4&lLOCKED&f&l] &c");
     private static final String ACTIVE_PREFIX =
-            ChatColor.translateAlternateColorCodes('&', "&f&l[&9&lACTIVE&f&l] &b");
+            ChatColor.translateAlternateColorCodes('&', "&e");
     private static final String COMPLETED_PREFIX =
             ChatColor.translateAlternateColorCodes('&', "&f&l[&2&lCOMPLETED&f&l] &a");
 
@@ -63,7 +63,7 @@ public class GeneralUtils {
         return stack;
     }
 
-    public static ItemStack itemStackIconCompleted(String name) {
+    public static ItemStack itemStackIconComplete(String name) {
         ItemStack stack = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(COMPLETED_PREFIX  + name);

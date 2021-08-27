@@ -44,8 +44,8 @@ public final class Quest {
 
     private static boolean playerHasItemStack(Player player, ItemStack target) {
         int itemCount = 0;
-        for (ItemStack actual : player.getInventory().getContents()) {
-            if (isItemSimilar(actual, target, true, false)) {
+        for (ItemStack actual : player.getInventory()) {
+            if (actual != null && isItemSimilar(actual, target, true, false)) {
                 itemCount += actual.getAmount();
             }
         }

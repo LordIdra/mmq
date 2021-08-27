@@ -23,8 +23,9 @@ public class CategoryInterface extends UserInterface {
     }
 
     private ItemStack getIconWithPrefix(Category category) {
-        // TODO add logic for if the player has completed a category
-        if (!category.playerHasPermission(player)) {
+        if (category.allQuestsComplete(player)) {
+            return GeneralUtils.itemStackIconComplete(category.getName());
+        } else if (!category.playerHasPermission(player)) {
             return GeneralUtils.itemStackIconLocked(category.getName(), category.getLoreLocked());
         } else {
             return GeneralUtils.itemStackIconActive(category.getName(), category.getLoreActive(), category.getIcon());

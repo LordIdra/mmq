@@ -21,14 +21,10 @@ public final class Category {
     private final List<Permission> permissions;
     private final List<Quest> quests;
 
-    private Permission categoryCompletePermission() {
-        return new Permission("mmq.category." + id + ".complete");
-    }
-
-    public Category(FileConfiguration config) {
+    public Category(String id, FileConfiguration config) {
         ConfigurationSection categoryConfig = config.getConfigurationSection("category");
         ConfigurationSection questConfig = config.getConfigurationSection("quests");
-        id = categoryConfig.getName();
+        this.id = id;
         name = categoryConfig.getString("name");
         icon = categoryConfig.getItemStack("icon");
         loreLocked = categoryConfig.getStringList("locked");
@@ -36,6 +32,10 @@ public final class Category {
         permissions = GeneralUtils.permissionStringsToPermissions(
                 categoryConfig.getStringList("permissions"));
         quests = CategoryConfig.loadQuests(questConfig);
+    }
+
+    private Permission categoryCompletePermission() {
+        return new Permission("mmq.category." + id + ".complete");
     }
 
     public boolean playerHasPermission(Player player) {

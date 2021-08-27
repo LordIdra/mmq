@@ -1,6 +1,7 @@
 package me.metamechanists.config;
 
 import me.metamechanists.util.FileUtils;
+import me.metamechanists.util.GeneralUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -26,7 +27,7 @@ public class CategoryConfig {
         for (String key : configs.keySet()) {
             FileConfiguration value = configs.get(key);
             if (value != null) {
-                categories.add(new Category(value));
+                categories.add(new Category(key, value));
             }
         }
     }
