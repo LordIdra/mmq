@@ -1,12 +1,13 @@
+C:\MMQ\src\main\java\me\metamechanists\storage\Quest.java
+C:\MMQ\src\main\java\me\metamechanists\util\FileUtils.java
+C:\MMQ\src\main\java\me\metamechanists\tasks\QuestTickTask.java
+C:\MMQ\src\main\java\me\metamechanists\config\CategoryDescriptor.java
 C:\MMQ\src\main\java\me\metamechanists\MMQ.java
 C:\MMQ\src\main\java\me\metamechanists\config\CategoryConfig.java
 C:\MMQ\src\main\java\me\metamechanists\gui\UserInterface.java
 C:\MMQ\src\main\java\me\metamechanists\gui\CategoryInterface.java
 C:\MMQ\src\main\java\me\metamechanists\config\QuestDescriptor.java
-C:\MMQ\src\main\java\me\metamechanists\storage\Quest.java
-C:\MMQ\src\main\java\me\metamechanists\util\FileUtils.java
-C:\MMQ\src\main\java\me\metamechanists\tasks\QuestTickTask.java
+C:\MMQ\src\main\java\me\metamechanists\gui\QuestInterface.java
 C:\MMQ\src\main\java\me\metamechanists\util\GeneralUtils.java
 C:\MMQ\src\main\java\me\metamechanists\util\PermissionUtils.java
 C:\MMQ\src\main\java\me\metamechanists\commands\CommandHandler.java
-C:\MMQ\src\main\java\me\metamechanists\config\CategoryDescriptor.java

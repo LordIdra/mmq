@@ -1,8 +1,10 @@
 package me.metamechanists.gui;
 
 import me.metamechanists.config.QuestDescriptor;
+import me.metamechanists.util.GeneralUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.LinkedHashMap;
 
@@ -15,11 +17,16 @@ public class QuestInterface extends UserInterface {
         this.quests = quests;
         int i = 0;
         for (QuestDescriptor quest : quests.values()) {
-            if (quest.playerHasPermission(player)) {
-                setItem(i++, quest.getNormalIcon());
-            } else {
-                setItem(i++, quest.getLockedIcon());
-            }
+            setItem(i++, getIconWithPrefix(quest));
+        }
+    }
+
+    private ItemStack getIconWithPrefix(QuestDescriptor quest) {
+        // TODO add logic for if the player has completed a category
+        if (!quest.playerHasPermission(player)) {
+            return GeneralUtils.itemStackIconLocked(quest.getName(), quest.getLoreLocked());
+        } else {
+            return GeneralUtils.itemStackIconAvailable(quest.getName(), quest.getLoreAvailable(), quest.getIcon());
         }
     }
 
@@ -27,7 +34,6 @@ public class QuestInterface extends UserInterface {
     protected void onClick(Player player, int slot, ClickType click) {
         if (quests.values().size() > slot) {
             QuestDescriptor quest = quests.values().stream().toList().get(slot);
-            String name = quests.keySet().stream().toList().get(slot);
             // TODO let players accept quests
         }
     }

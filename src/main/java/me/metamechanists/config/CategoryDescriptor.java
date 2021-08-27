@@ -7,40 +7,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Objects;
 
 
 public final class CategoryDescriptor {
 
-    private final ItemStack normalIcon;
+    private final String name;
+    private final ItemStack icon;
+    private final List<String> loreLocked;
+    private final List<String> loreAvailable;
     private final List<Permission> permissions;
-    private final List<QuestDescriptor> quests;
-    private final ItemStack lockedIcon;
+    private final LinkedHashMap<String, QuestDescriptor> quests;
 
     public CategoryDescriptor(FileConfiguration config) {
         ConfigurationSection categoryConfig = config.getConfigurationSection("category");
         ConfigurationSection questConfig = config.getConfigurationSection("quests");
-        normalIcon = categoryConfig.getItemStack("normal-icon");
-        lockedIcon = categoryConfig.getItemStack("locked-icon");
+        name = categoryConfig.getString("name");
+        icon = categoryConfig.getItemStack("icon");
+        loreLocked = categoryConfig.getStringList("locked");
+        loreAvailable = categoryConfig.getStringList("available");
         permissions = GeneralUtils.permissionStringsToPermissions(
                 categoryConfig.getStringList("permissions"));
         quests = CategoryConfig.loadQuests(questConfig);
-        if (normalIcon == null) {
-            GeneralUtils.plugin.getLogger().severe("Category " + config.getName() + " missing icon.");
-        }
-    }
-
-    public ItemStack getNormalIcon() {
-        return normalIcon;
-    }
-
-    public ItemStack getLockedIcon() {
-        return lockedIcon;
-    }
-
-    public List<QuestDescriptor> getQuests() {
-        return quests;
     }
 
     public boolean playerHasPermission(Player player) {
@@ -52,11 +41,21 @@ public final class CategoryDescriptor {
         return true;
     }
 
-    public List<Permission> permissions() {
-        return permissions;
+    public ItemStack getIcon() { return icon; }
+
+    public List<String> getLoreLocked() {
+        return loreLocked;
     }
 
-    public List<QuestDescriptor> quests() {
+    public List<String> getLoreAvailable() {
+        return loreAvailable;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LinkedHashMap<String, QuestDescriptor> getQuests() {
         return quests;
     }
 }

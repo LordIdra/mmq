@@ -1,6 +1,8 @@
 package me.metamechanists.config;
 
+import me.metamechanists.util.GeneralUtils;
 import me.metamechanists.util.PermissionUtils;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
@@ -10,14 +12,29 @@ import java.util.Map;
 
 import static io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils.isItemSimilar;
 
+public final class QuestDescriptor {
 
-public record QuestDescriptor(
-        ItemStack normalIcon,
-        ItemStack lockedIcon,
-        List<Permission> requiredPermissions,
-        ItemStack requiredItem,
-        List<Permission> rewardPermissions,
-        ItemStack rewardItem) {
+    private final String name;
+    private final ItemStack icon;
+    private final List<String> loreLocked;
+    private final List<String> loreAvailable;
+    private final List<Permission> requiredPermissions;
+    private final ItemStack requiredItem;
+    private final List<Permission> rewardPermissions;
+    private final ItemStack rewardItem;
+
+    public QuestDescriptor(ConfigurationSection section) {
+        name = section.getString("name");
+        icon = section.getItemStack("icon");
+        loreLocked = section.getStringList("locked");
+        loreAvailable = section.getStringList("available");
+        requiredPermissions = GeneralUtils.permissionStringsToPermissions(
+                section.getStringList("required-permissions"));
+        rewardPermissions = GeneralUtils.permissionStringsToPermissions(
+                section.getStringList("reward-permissions"));
+        requiredItem = section.getItemStack("required-items");
+        rewardItem = section.getItemStack("reward-items");
+    }
 
     private static boolean playerHasItemStack(Player player, ItemStack target) {
         int itemCount = 0;
@@ -27,14 +44,6 @@ public record QuestDescriptor(
             }
         }
         return itemCount > target.getAmount();
-    }
-
-    public ItemStack getNormalIcon() {
-        return normalIcon;
-    }
-
-    public ItemStack getLockedIcon() {
-        return lockedIcon;
     }
 
     public boolean playerHasPermission(Player player) {
@@ -61,5 +70,21 @@ public record QuestDescriptor(
         for (Permission permission : rewardPermissions) {
             PermissionUtils.addPermission(player, permission);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ItemStack getIcon() {
+        return icon;
+    }
+
+    public List<String> getLoreLocked() {
+        return loreLocked;
+    }
+
+    public List<String> getLoreAvailable() {
+        return loreAvailable;
     }
 }

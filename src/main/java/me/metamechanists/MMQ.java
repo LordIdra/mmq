@@ -17,7 +17,6 @@ public class MMQ extends JavaPlugin {
         GeneralUtils.initialize();
         FileUtils.loadAllConfigs();
         CategoryConfig.loadCategories();
-        GeneralUtils.plugin.getLogger().info(CategoryConfig.getCategories().toString());
         // TODO load template quests into QuestStorage
         // TODO load active quests into QuestStorage
     }
