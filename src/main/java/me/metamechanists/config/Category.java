@@ -28,7 +28,7 @@ public final class Category {
         name = categoryConfig.getString("name");
         icon = categoryConfig.getItemStack("icon");
         loreLocked = categoryConfig.getStringList("locked");
-        loreActive = categoryConfig.getStringList("available");
+        loreActive = categoryConfig.getStringList("active");
         permissions = GeneralUtils.permissionStringsToPermissions(
                 categoryConfig.getStringList("permissions"));
         quests = CategoryConfig.loadQuests(questConfig);
