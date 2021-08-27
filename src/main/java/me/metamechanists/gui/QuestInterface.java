@@ -35,7 +35,7 @@ public class QuestInterface extends UserInterface {
     @Override
     protected void onClick(Player player, int slot, ClickType click) {
         if (slot == 0) {
-            int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0);
+            int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0) * 9;
             new CategoryInterface(player, size, "Categories").display();
         }
         if (quests.values().size() >= slot) {

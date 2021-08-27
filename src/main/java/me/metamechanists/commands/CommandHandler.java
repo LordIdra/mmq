@@ -28,7 +28,7 @@ public class CommandHandler {
             GeneralUtils.plugin.getLogger().warning("This command cannot be run from console.");
             return;
         }
-        int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0);
+        int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0) * 9;
         new CategoryInterface((Player) sender, size, "Categories").display();
     }
 

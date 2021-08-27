@@ -36,7 +36,7 @@ public class CategoryInterface extends UserInterface {
         if (categories.values().size() > slot) {
             CategoryDescriptor category = categories.values().stream().toList().get(slot);
             if (category.playerHasPermission(player)) {
-                int size = (int) Math.ceil(category.getQuests().size() / 9.0);
+                int size = (int) Math.ceil(category.getQuests().size() / 9.0) * 9;
                 new QuestInterface(player, size, "Quests", category.getQuests()).display();
             }
         }
