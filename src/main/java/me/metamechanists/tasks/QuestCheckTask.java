@@ -36,7 +36,7 @@ public class QuestCheckTask extends BukkitRunnable {
 
     private static void completeQuests(Player player) {
         for (Quest quest : getActiveQuests(player)) {
-            if (quest.playerHasItems(player)) {
+            if (quest.playerHasItem(player)) {
                 quest.complete(player);
             }
         }

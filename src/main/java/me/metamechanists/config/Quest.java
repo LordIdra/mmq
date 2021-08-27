@@ -34,25 +34,15 @@ public final class Quest {
                 section.getStringList("required-permissions"));
         rewardPermissions = GeneralUtils.permissionStringsToPermissions(
                 section.getStringList("reward-permissions"));
-        requiredItem = section.getItemStack("required-items");
-        rewardItem = section.getItemStack("reward-items");
+        requiredItem = section.getItemStack("required-item");
+        rewardItem = section.getItemStack("reward-item");
     }
 
     private Permission questCompletePermission() {
         return new Permission("mmq.quest." + id + ".complete");
     }
 
-    private static boolean playerHasItemStack(Player player, ItemStack target) {
-        int itemCount = 0;
-        for (ItemStack actual : player.getInventory()) {
-            if (actual != null && isItemSimilar(actual, target, true, false)) {
-                itemCount += actual.getAmount();
-            }
-        }
-        return itemCount > target.getAmount();
-    }
-
-    private void rewardPlayerItems(Player player) {
+    private void rewardPlayerItem(Player player) {
         Map<Integer, ItemStack> items_to_drop = player.getInventory().addItem(rewardItem);
         for (ItemStack dropStack : items_to_drop.values()) {
             player.getWorld().dropItem(player.getLocation(), dropStack);
@@ -65,8 +55,14 @@ public final class Quest {
         }
     }
 
-    public boolean playerHasItems(Player player) {
-        return playerHasItemStack(player, requiredItem);
+    public boolean playerHasItem(Player player) {
+        int itemCount = 0;
+        for (ItemStack actual : player.getInventory()) {
+            if (actual != null && isItemSimilar(actual, requiredItem, true, false)) {
+                itemCount += actual.getAmount();
+            }
+        }
+        return itemCount > requiredItem.getAmount();
     }
 
     public boolean playerHasPermission(Player player) {
@@ -82,7 +78,7 @@ public final class Quest {
     }
 
     public void complete(Player player) {
-        rewardPlayerItems(player);
+        rewardPlayerItem(player);
         rewardPlayerPermissions(player);
         PermissionUtils.addPermission(player, questCompletePermission());
     }
