@@ -62,10 +62,10 @@ public final class Quest {
                 itemCount += actual.getAmount();
             }
         }
-        return itemCount > requiredItem.getAmount();
+        return itemCount >= requiredItem.getAmount();
     }
 
-    public boolean playerHasPermission(Player player) {
+    public boolean isActive(Player player) {
         if (player.hasPermission(questCompletePermission())) {
             return false;
         }

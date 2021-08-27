@@ -27,10 +27,10 @@ public class QuestInterface extends UserInterface {
     private ItemStack getIconWithPrefix(Quest quest) {
         if (quest.isComplete(player)) {
             return GeneralUtils.itemStackIconComplete(quest.getName());
-        } else if (!quest.playerHasPermission(player)) {
-            return GeneralUtils.itemStackIconLocked(quest.getName(), quest.getLoreLocked());
-        } else {
+        } else if (quest.isActive(player)) {
             return GeneralUtils.itemStackIconActive(quest.getName(), quest.getLoreActive(), quest.getIcon());
+        } else {
+            return GeneralUtils.itemStackIconLocked(quest.getName(), quest.getLoreLocked());
         }
     }
 

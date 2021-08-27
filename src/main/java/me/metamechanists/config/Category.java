@@ -38,7 +38,7 @@ public final class Category {
         return new Permission("mmq.category." + id + ".complete");
     }
 
-    public boolean playerHasPermission(Player player) {
+    public boolean isActive(Player player) {
         if (player.hasPermission(categoryCompletePermission())) {
             return false;
         }

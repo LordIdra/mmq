@@ -15,7 +15,7 @@ public class QuestCheckTask extends BukkitRunnable {
     private static List<Category> getActiveCategories(Player player) {
         List<Category> activeCategories = new ArrayList<>();
         for (Category category : CategoryConfig.getCategories()) {
-            if (category.playerHasPermission(player)) {
+            if (category.isActive(player)) {
                 activeCategories.add(category);
             }
         }
@@ -26,7 +26,7 @@ public class QuestCheckTask extends BukkitRunnable {
         List<Quest> activeQuests = new ArrayList<>();
         for (Category category : getActiveCategories(player)) {
             for (Quest quest : category.getQuests()) {
-                if (quest.playerHasPermission(player)) {
+                if (quest.isActive(player)) {
                     activeQuests.add(quest);
                 }
             }

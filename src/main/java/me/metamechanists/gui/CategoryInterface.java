@@ -25,10 +25,10 @@ public class CategoryInterface extends UserInterface {
     private ItemStack getIconWithPrefix(Category category) {
         if (category.allQuestsComplete(player)) {
             return GeneralUtils.itemStackIconComplete(category.getName());
-        } else if (!category.playerHasPermission(player)) {
-            return GeneralUtils.itemStackIconLocked(category.getName(), category.getLoreLocked());
-        } else {
+        } else if (category.isActive(player)) {
             return GeneralUtils.itemStackIconActive(category.getName(), category.getLoreActive(), category.getIcon());
+        } else {
+            return GeneralUtils.itemStackIconLocked(category.getName(), category.getLoreLocked());
         }
     }
 
@@ -36,7 +36,7 @@ public class CategoryInterface extends UserInterface {
     protected void onClick(Player player, int slot, ClickType click) {
         if (categories.size() > slot) {
             Category category = categories.get(slot);
-            if (category.playerHasPermission(player)) {
+            if (category.isActive(player)) {
                 int size = (int) Math.ceil(category.getQuests().size() / 9.0) * 9;
                 new QuestInterface(player, size, "Quests", category.getQuests()).display();
             }

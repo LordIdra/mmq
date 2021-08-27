@@ -34,18 +34,6 @@ public abstract class UserInterface implements Listener {
         inventory.setItem(slot, item);
     }
 
-    protected void setItem(int slot, Material material, String name, String... lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) {
-            return;
-        }
-        meta.setDisplayName(name);
-        meta.setLore(Arrays.asList(lore));
-        item.setItemMeta(meta);
-        inventory.setItem(slot, item);
-    }
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getInventory() != inventory)
