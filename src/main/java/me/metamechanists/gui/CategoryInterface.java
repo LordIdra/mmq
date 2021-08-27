@@ -27,7 +27,7 @@ public class CategoryInterface extends UserInterface {
         if (!category.playerHasPermission(player)) {
             return GeneralUtils.itemStackIconLocked(category.getName(), category.getLoreLocked());
         } else {
-            return GeneralUtils.itemStackIconAvailable(category.getName(), category.getLoreAvailable(), category.getIcon());
+            return GeneralUtils.itemStackIconActive(category.getName(), category.getLoreAvailable(), category.getIcon());
         }
     }
 

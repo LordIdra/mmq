@@ -17,8 +17,6 @@ public class GeneralUtils {
     public static File dataFolder;
     private static final String LOCKED_PREFIX =
             ChatColor.translateAlternateColorCodes('&', "&f&l[&4&lLOCKED&f&l] &c");
-    private static final String AVAILABLE_PREFIX =
-            ChatColor.translateAlternateColorCodes('&', "&f&l[&6&lAVAILABLE&f&l] &e");
     private static final String ACTIVE_PREFIX =
             ChatColor.translateAlternateColorCodes('&', "&f&l[&9&lACTIVE&f&l] &b");
     private static final String COMPLETED_PREFIX =
@@ -52,14 +50,6 @@ public class GeneralUtils {
         ItemStack stack = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(LOCKED_PREFIX  + name);
-        meta.setLore(lore);
-        stack.setItemMeta(meta);
-        return stack;
-    }
-
-    public static ItemStack itemStackIconAvailable(String name, List<String> lore, ItemStack stack) {
-        ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(AVAILABLE_PREFIX  + name);
         meta.setLore(lore);
         stack.setItemMeta(meta);
         return stack;

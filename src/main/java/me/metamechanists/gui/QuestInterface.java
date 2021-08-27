@@ -29,7 +29,7 @@ public class QuestInterface extends UserInterface {
         if (!quest.playerHasPermission(player)) {
             return GeneralUtils.itemStackIconLocked(quest.getName(), quest.getLoreLocked());
         } else {
-            return GeneralUtils.itemStackIconAvailable(quest.getName(), quest.getLoreAvailable(), quest.getIcon());
+            return GeneralUtils.itemStackIconActive(quest.getName(), quest.getLoreAvailable(), quest.getIcon());
         }
     }
 
