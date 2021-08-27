@@ -38,6 +38,14 @@ public class GeneralUtils {
         return file.getName().substring(0, file.getName().indexOf('.'));
     }
 
+    public static ItemStack itemStackReturn() {
+        ItemStack stack = new ItemStack(Material.ENCHANTED_BOOK);
+        ItemMeta meta = stack.getItemMeta();
+        meta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Return");
+        stack.setItemMeta(meta);
+        return stack;
+    }
+
     public static ItemStack itemStackIconLocked(String name, List<String> lore) {
         ItemStack stack = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta meta = stack.getItemMeta();

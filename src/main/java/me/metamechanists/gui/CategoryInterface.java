@@ -35,9 +35,10 @@ public class CategoryInterface extends UserInterface {
     protected void onClick(Player player, int slot, ClickType click) {
         if (categories.values().size() > slot) {
             CategoryDescriptor category = categories.values().stream().toList().get(slot);
-            String name = categories.keySet().stream().toList().get(slot);
-            player.sendMessage("You clicked " + name);
-            new QuestInterface(player, 9, "Quests", category.getQuests()).display();
+            if (category.playerHasPermission(player)) {
+                int size = (int) Math.ceil(category.getQuests().size() / 9.0);
+                new QuestInterface(player, size, "Quests", category.getQuests()).display();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package me.metamechanists.gui;
 
+import me.metamechanists.config.CategoryConfig;
 import me.metamechanists.config.QuestDescriptor;
 import me.metamechanists.util.GeneralUtils;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class QuestInterface extends UserInterface {
         super(player, size, title);
         this.quests = quests;
         int i = 0;
+        setItem(i++, GeneralUtils.itemStackReturn());
         for (QuestDescriptor quest : quests.values()) {
             setItem(i++, getIconWithPrefix(quest));
         }
@@ -32,9 +34,13 @@ public class QuestInterface extends UserInterface {
 
     @Override
     protected void onClick(Player player, int slot, ClickType click) {
-        if (quests.values().size() > slot) {
+        if (slot == 0) {
+            int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0);
+            new CategoryInterface(player, size, "Categories").display();
+        }
+        if (quests.values().size() >= slot) {
             QuestDescriptor quest = quests.values().stream().toList().get(slot);
-            // TODO let players accept quests
+            // TODO let players accept quests (if they have them unlocked)
         }
     }
 }

@@ -1,5 +1,6 @@
 package me.metamechanists.commands;
 
+import me.metamechanists.config.CategoryConfig;
 import me.metamechanists.gui.CategoryInterface;
 import me.metamechanists.util.FileUtils;
 import me.metamechanists.util.GeneralUtils;
@@ -27,7 +28,8 @@ public class CommandHandler {
             GeneralUtils.plugin.getLogger().warning("This command cannot be run from console.");
             return;
         }
-        new CategoryInterface((Player) sender, 9, "Categories").display();
+        int size = (int) Math.ceil(CategoryConfig.getCategories().size() / 9.0);
+        new CategoryInterface((Player) sender, size, "Categories").display();
     }
 
     public static void processItemStackSaveCommand(CommandSender sender) {
