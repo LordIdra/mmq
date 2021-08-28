@@ -40,6 +40,10 @@ public class MMQ extends JavaPlugin {
             CommandHandler.processItemStackSaveCommand(sender);
             return true;
         }
+        if (CommandHandler.isQuestReloadCommand(command)) {
+            CommandHandler.processQuestReloadCommand();
+            return true;
+        }
         return false;
     }
 }

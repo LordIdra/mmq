@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>MMQ</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>

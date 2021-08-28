@@ -2,6 +2,7 @@ package me.metamechanists.config;
 
 import me.metamechanists.util.GeneralUtils;
 import me.metamechanists.util.PermissionUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -66,7 +67,9 @@ public final class Quest {
     }
 
     public boolean isActive(Player player) {
+        GeneralUtils.plugin.getLogger().info(questCompletePermission().getName());
         if (player.hasPermission(questCompletePermission())) {
+            GeneralUtils.plugin.getLogger().info("sky's mum is scary");
             return false;
         }
         for (Permission permission : requiredPermissions) {
@@ -78,9 +81,25 @@ public final class Quest {
     }
 
     public void complete(Player player) {
-        rewardPlayerItem(player);
-        rewardPlayerPermissions(player);
-        PermissionUtils.addPermission(player, questCompletePermission());
+        if (PermissionUtils.addPermission(player, questCompletePermission())) {
+            rewardPlayerItem(player);
+            rewardPlayerPermissions(player);
+            String rewardName;
+            if (rewardItem.getItemMeta().hasDisplayName()) {
+                rewardName = rewardItem.getItemMeta().getDisplayName();
+            } else {
+                rewardName = rewardItem.getType().toString().toLowerCase();
+            }
+            String headerFooter = ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "[=]";
+            String globalMessage = ChatColor.BLUE + "" + player.getDisplayName() + ChatColor.GRAY +
+                    " has completed the quest " + ChatColor.BLUE + name + ChatColor.RESET + ChatColor.GRAY + "!";
+            String localMessage = ChatColor.DARK_PURPLE + "Quest Reward: " + ChatColor.LIGHT_PURPLE +
+                    rewardName + ChatColor.YELLOW + " x" + rewardItem.getAmount();
+            player.sendMessage(headerFooter);
+            GeneralUtils.plugin.getServer().broadcastMessage(globalMessage);
+            player.sendMessage(localMessage);
+            player.sendMessage(headerFooter);
+        }
     }
 
     public boolean isComplete(Player player) {

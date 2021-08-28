@@ -16,11 +16,15 @@ public class CommandHandler {
     private CommandHandler() {}
 
     public static boolean isQuestCommand(@NotNull Command command) {
-        return command.getName().equals("quest");
+        return command.getName().equalsIgnoreCase("quest");
     }
 
     public static boolean isItemStackSaveCommand(@NotNull Command command) {
         return command.getName().equalsIgnoreCase("itemstacksave");
+    }
+
+    public static boolean isQuestReloadCommand(@NotNull Command command) {
+        return command.getName().equalsIgnoreCase("questreload");
     }
 
     public static void processQuestCommand(CommandSender sender) {
@@ -41,5 +45,10 @@ public class CommandHandler {
         Player player = (Player) sender;
         ItemStack stack = player.getInventory().getItemInMainHand();
         FileUtils.writeStack(player, stack);
+    }
+
+    public static void processQuestReloadCommand() {
+        FileUtils.loadAllConfigs();
+        CategoryConfig.loadCategories();
     }
 }

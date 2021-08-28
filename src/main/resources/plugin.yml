@@ -1,6 +1,6 @@
 main: me.metamechanists.MMQ
 name: MMQ
-version: 0.1
+version: 0.2
 description: A small custom plugin for handling quests
 api-version: 1.17
 author: Idra
@@ -20,4 +20,7 @@ permissions:
     default: true
   mmq.itemstacksave:
     description: "Allows the usage of /itemstacksave"
+    default: op
+  mmq.questreload:
+    description: "Reloads the config files for MMQ"
     default: op

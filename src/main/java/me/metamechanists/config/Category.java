@@ -2,6 +2,7 @@ package me.metamechanists.config;
 
 import me.metamechanists.util.GeneralUtils;
 import me.metamechanists.util.PermissionUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
