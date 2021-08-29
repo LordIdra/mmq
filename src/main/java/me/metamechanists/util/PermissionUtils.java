@@ -17,10 +17,12 @@ public class PermissionUtils {
 
     public static boolean addPermission(Player player, Permission permission) {
         try {
-            GeneralUtils.plugin.getLogger().info(player.getUniqueId().toString());
-            luckpermsAPI.getUserManager().getUser(player.getUniqueId()).data().add(Node.builder(permission.getName()).build());
-            luckpermsAPI.getUserManager().saveUser(luckpermsAPI.getUserManager().getUser(player.getUniqueId()));
+            final UserManager userManager = luckpermsAPI.getUserManager();
+            User user = userManager.getUser(player.getUniqueId());
+            user.data().add(Node.builder(permission.getName()).value(true).build());
+            userManager.saveUser(user);
         } catch (Exception e) {
+            GeneralUtils.plugin.getLogger().info("we're moving to south africa");
             e.printStackTrace();
             return false;
         }

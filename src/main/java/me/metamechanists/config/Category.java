@@ -2,7 +2,6 @@ package me.metamechanists.config;
 
 import me.metamechanists.util.GeneralUtils;
 import me.metamechanists.util.PermissionUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 
 import java.util.List;
-
+import java.util.Map;
 
 public final class Category {
 
@@ -20,7 +19,7 @@ public final class Category {
     private final List<String> loreLocked;
     private final List<String> loreActive;
     private final List<Permission> permissions;
-    private final List<Quest> quests;
+    private final Map<Integer, Quest> quests;
 
     public Category(String id, FileConfiguration config) {
         ConfigurationSection categoryConfig = config.getConfigurationSection("category");
@@ -52,7 +51,7 @@ public final class Category {
     }
 
     public boolean allQuestsComplete(Player player) {
-        for (Quest quest : quests) {
+        for (Quest quest : quests.values()) {
             if (!quest.isComplete(player)) {
                 return false;
             }
@@ -78,7 +77,7 @@ public final class Category {
         return name;
     }
 
-    public List<Quest> getQuests() {
+    public Map<Integer, Quest> getQuests() {
         return quests;
     }
 }

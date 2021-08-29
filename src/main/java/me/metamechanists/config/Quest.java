@@ -67,9 +67,7 @@ public final class Quest {
     }
 
     public boolean isActive(Player player) {
-        GeneralUtils.plugin.getLogger().info(questCompletePermission().getName());
         if (player.hasPermission(questCompletePermission())) {
-            GeneralUtils.plugin.getLogger().info("sky's mum is scary");
             return false;
         }
         for (Permission permission : requiredPermissions) {

@@ -1,7 +1,6 @@
 package me.metamechanists.config;
 
 import me.metamechanists.util.FileUtils;
-import me.metamechanists.util.GeneralUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -9,15 +8,16 @@ import java.util.*;
 
 public class CategoryConfig {
 
-    private static final List<Category> categories = new ArrayList<>();
+    private static final Map<Integer, Category> categories = new HashMap<>();
 
     private CategoryConfig() {}
 
-    public static List<Quest> loadQuests(ConfigurationSection section) {
-        List<Quest> quests = new ArrayList<>();
+    public static Map<Integer, Quest> loadQuests(ConfigurationSection section) {
+        Map<Integer, Quest> quests = new HashMap<>();
         for (String key : section.getKeys(false)) {
             ConfigurationSection value = section.getConfigurationSection(key);
-            quests.add(new Quest(value));
+            int slot = value.getInt("slot");
+            quests.put(slot, new Quest(value));
         }
         return quests;
     }
@@ -27,12 +27,14 @@ public class CategoryConfig {
         for (String key : configs.keySet()) {
             FileConfiguration value = configs.get(key);
             if (value != null) {
-                categories.add(new Category(key, value));
+                ConfigurationSection section = value.getConfigurationSection("category");
+                int slot = section.getInt("slot");
+                categories.put(slot, new Category(key, value));
             }
         }
     }
 
-    public static List<Category> getCategories() {
+    public static Map<Integer, Category> getCategories() {
         return categories;
     }
 }

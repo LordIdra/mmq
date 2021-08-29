@@ -7,18 +7,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import java.util.Map;
 
 public class CategoryInterface extends UserInterface {
 
-    List<Category> categories;
+    Map<Integer, Category> categories;
 
     public CategoryInterface(Player player, int size, String title) {
         super(player, size, title);
         categories = CategoryConfig.getCategories();
-        int i = 0;
-        for (Category category : categories) {
-            setItem(i++, getIconWithPrefix(category));
+        for (int slot : categories.keySet()) {
+            Category category = categories.get(slot);
+            setItem(slot, getIconWithPrefix(category));
         }
     }
 
@@ -37,7 +37,7 @@ public class CategoryInterface extends UserInterface {
         if (categories.size() > slot) {
             Category category = categories.get(slot);
             if (category.isActive(player)) {
-                int size = (int) Math.ceil(category.getQuests().size() / 9.0) * 9;
+                int size = 45;
                 new QuestInterface(player, size, "Quests", category.getQuests()).display();
             }
         }

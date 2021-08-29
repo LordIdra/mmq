@@ -13,6 +13,9 @@ commands:
   itemstacksave:
     permission: mmq.itemstacksave
     description: "Save an itemstack to itemstacks.yml"
+  questreload:
+    permission: mmq.questreload
+    description: "Reload MMQ config files"
 
 permissions:
   mmq.quest:
