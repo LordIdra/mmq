@@ -1,2 +1,2 @@
 # MMQ
- WIP questing plugin for MetaMechanists
+Questing plugin for MetaMechanists
