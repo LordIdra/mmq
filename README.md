@@ -1,2 +1,2 @@
-# MMQ
+# mmq
 Questing plugin for MetaMechanists
